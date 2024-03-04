@@ -19,7 +19,7 @@ Text Simplification | [Asset](https://github.com/facebookresearch/asset) | 2000 
 Text Simplification | [Wiki-Auto](https://github.com/chaojiang06/wiki-auto/blob/master/wiki-auto/GEM2021/full_with_split/valid.tsv) | same data as above | 1000 samples of the Wiki-Auto development set | ChatGPT
 Abstractive Summarization | [XLSum](https://github.com/csebuetnlp/xl-sum) | 300 samples of the XLSum development set for each language | 500 samples of the XLSum test set for each language (fr, ru, es) | ChatGPT
 
-## Counting of Activated Neurons
+## Counting the Activated Neurons
 
 
 ## Fine-tuning and Inference
