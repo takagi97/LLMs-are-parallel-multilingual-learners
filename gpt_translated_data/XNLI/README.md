@@ -1,0 +1,1 @@
+Our training set for [XNLI](https://cims.nyu.edu/~sbowman/xnli/) is based on its development set which is parallel in multiple languages.

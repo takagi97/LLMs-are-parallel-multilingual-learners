@@ -1,0 +1,1 @@
+Our training set for WMT is based on the [FLORES-200](https://github.com/facebookresearch/flores/tree/main/flores200) development set which is parallel in multiple languages.
