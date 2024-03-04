@@ -4,7 +4,7 @@ The code of this work is consisting of two parts. The first one is counting acti
 ## Requirements and Installation
 - LLaMA-Factory >= 0.3.2
 
-To do fine-tuning and inference on the multilingual LLMs used in our work, all you need is to satisfiy the environment needs of [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/tree/v0.3.2).
+To do fine-tuning and inference on the multilingual LLMs used in our work, all you need is to create an environment satisfying the needs of [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/tree/v0.3.2).
 
 ## Parallel multilingual Data
 The parallel multilingual data translated by GPTs is released in ```gpt_translated_data/specific dataset```. The dataset used in our work is detailed in the following table. Note that all samples are randomly selected to guarantee the effectiveness of the evaluations. Except for the FLORES-200 and XNLI development set which is already parallel in multiple languages, other datasets are translated by GPTs. 
