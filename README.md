@@ -36,7 +36,7 @@ mT0-13B | N | [offical code](https://huggingface.co/bigscience/mt0-xxl)
 Yi-34B | Y | LLaMA-Factory
 Bloomz-176B | N | [offical code](https://huggingface.co/bigscience/bloomz)
 
-The demo for making fine-tuning and inference data is in ```fine-tuning_and_inference```.
+The demo for making fine-tuning and inference data is located in ```fine-tuning_and_inference```.
 
 <!-- ## Citation
 If this work is helpful for your research, please consider citing the following BibTeX entry.
