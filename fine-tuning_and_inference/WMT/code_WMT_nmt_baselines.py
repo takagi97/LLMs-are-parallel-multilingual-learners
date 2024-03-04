@@ -139,7 +139,7 @@ def parse_args():
     parser.add_argument(
         "--engine",
         type=str,
-        default="gpt-4",
+        default="gpt-3.5-turbo-0613",
         help="The engine to use."
     )
     parser.add_argument(
