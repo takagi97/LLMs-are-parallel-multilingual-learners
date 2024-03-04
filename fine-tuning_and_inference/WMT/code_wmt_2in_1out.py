@@ -1,14 +1,9 @@
 import os
 import tqdm
 import argparse
-from request_chatgpt_myy import make_requests
-from request_chatgpt_myy import key_generator_f
+from request_chatgpt import make_requests
 import tiktoken
 import re
-
-keys = [
-    "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"
-]
 
 '''
 code prompt multi-lang input on flores-200
@@ -74,25 +69,27 @@ def parse_args():
         required=True,
         help="The directory where the result is stored.",
     )
+
+    # Must be set
     parser.add_argument(
         "--wmt22_data_path",
         type=str,
-        # default="/mnt/muyongyu/fpn/multi_lang/gpt-MT/evaluation/testset/wmt-testset",
-        default="/mnt/muyongyu/fpn/multi_lang/wmt22-news-systems/txt",
+        default="wmt22-news-systems/txt",
         help="The path to the WMT22.",
     )
     parser.add_argument(
         "--flores200_data_path",
         type=str,
-        default="/mnt/muyongyu/fpn/multi_lang/flores200_dataset",
+        default="flores200_dataset",
         help="The path to the Flores-200.",
     )
     parser.add_argument(
         "--nmt_data_path",
         type=str,
-        default="/mnt/muyongyu/fpn/multi_lang/myy_files/results/GPT4",
+        default="results",
         help="The path to the NMT translations.",
     )
+
     parser.add_argument(
         "--flores_src_files",
         type=str,
@@ -194,7 +191,7 @@ if __name__ == "__main__":
     
 
     fewshot = None
-    fewshot_row_list = [4,12,137,36,65]
+    fewshot_row_list = [4,12,137,36,65] # To shorten the input sequence, we selected short demonstrations in FLORES-200. You can randomly select as well.
     if args.nshot > 0:
         fewshot = []
         fewshot_row_list = fewshot_row_list[0:args.nshot]
@@ -209,7 +206,6 @@ if __name__ == "__main__":
 
     shots = []
     with open(os.path.join(args.wmt22_data_path, "sources", f"generaltest2022.{source_lang_abb_wmt22[0]}-{target_lang_abb_wmt22}.src.{source_lang_abb_wmt22[0]}"), "r") as fin_s1:
-    # with open(os.path.join("/mnt/muyongyu/fpn/multi_lang/wmt21-news-systems/txt/sources", f"newstest2021.{source_lang_abb_wmt22[0]}-{target_lang_abb_wmt22}.src.{source_lang_abb_wmt22[0]}"), "r") as fin_s1:
         with open(os.path.join(args.nmt_data_path, source_lang_abb_wmt22[0]+"2"+target_lang_abb_wmt22, "wmt22-"+source_lang_abb_flores[0]+"2"+source_lang_abb_flores[1]+"-1shot-baseline_vhendy", "result.txt"), "r") as fin_s2:
             for line_s1, line_s2 in zip(fin_s1, fin_s2):
                 tmp_dict = [[source_languages[0],line_s1.strip()], [source_languages[1],line_s2.strip()]]
@@ -229,7 +225,6 @@ if __name__ == "__main__":
 
     # now let's generate new sentences!
     progress_bar = tqdm.tqdm(total=len(shots))
-    key_generator = key_generator_f(keys, 999999999)
     if machine_data:
         progress_bar.update(len(machine_data))
     with open(os.path.join(args.result_data_path, "result.txt"), "a", encoding='utf-8') as fout_t1:
@@ -237,15 +232,11 @@ if __name__ == "__main__":
             while len(machine_data) < len(shots):
                 prompt = encode_prompt(source_languages[0], target_language, fewshot, shots[len(machine_data)], prompt_version=args.prompt_version)
 
-                # print(prompt)
-                # exit(0)
-
                 fout_prompt.write(prompt["content"].replace("\n", "\\n") + "\n")
                 prompt["content"] = prompt["content"].replace("\\n", "\n")
                 if num_tokens_of_string(prompt["content"]) <= args.max_input_tokens:
-                    # result = "Only prompt no request"
+                    # result = "Only prompt no request" # Commenting out the next line and uncommenting this line enables this script to only records the prompts!
                     result = make_requests(
-                        key_generator=key_generator,
                         engine=args.engine,
                         prompts=[prompt],
                         max_tokens=(4000 - args.max_input_tokens),
@@ -254,7 +245,7 @@ if __name__ == "__main__":
                         frequency_penalty=0,
                         presence_penalty=2,
                         stop_sequences=["\n\n"]
-                        )[0]["response"]["choices"][0]["message"]["content"] # ["text"]
+                        )[0]["response"]["choices"][0]["message"]["content"]
                 else:
                     result = "###over length!!!"
 

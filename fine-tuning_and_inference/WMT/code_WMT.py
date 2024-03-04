@@ -2,16 +2,11 @@ import os
 import random
 import tqdm
 import argparse
-from request_chatgpt_myy import make_requests
-from request_chatgpt_myy import key_generator_f
+from request_chatgpt import make_requests
 import tiktoken
 import time
 
 random.seed(42)
-
-keys = [
-    "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"
-]
 
 '''
 code prompt fewshot (5) on WMT22 with demonstrations from WMT21
@@ -77,19 +72,21 @@ def parse_args():
         required=True,
         help="The directory where the result is stored.",
     )
+
+    # Must be set
     parser.add_argument(
         "--wmt22_data_path",
         type=str,
-        # default="/mnt/muyongyu/fpn/multi_lang/gpt-MT/evaluation/testset/wmt-testset",
-        default="/mnt/muyongyu/fpn/multi_lang/wmt22-news-systems/txt",
+        default="wmt22-news-systems/txt",
         help="The path to the WMT22.",
     )
     parser.add_argument(
         "--flores200_data_path",
         type=str,
-        default="/mnt/muyongyu/fpn/multi_lang/flores200_dataset",
+        default="flores200_dataset",
         help="The path to the Flores-200.",
     )
+
     parser.add_argument(
         "--lang_para",
         type=str,
@@ -158,9 +155,7 @@ if __name__ == "__main__":
     tgt_file_flores = lang_para_flores.split("_###_")[1].split("_#_")[1]
 
     src_sents = []
-    # with open(os.path.join(args.wmt22_data_path, src_file+tgt_file, f"test.{src_file}-{tgt_file}.{src_file}"), "r") as fin:
     with open(os.path.join(args.wmt22_data_path, "sources", f"generaltest2022.{src_file}-{tgt_file}.src.{src_file}"), "r") as fin:
-    # with open(os.path.join("/mnt/muyongyu/fpn/multi_lang/wmt21-news-systems/txt/sources", f"newstest2021.{src_file}-{tgt_file}.src.{src_file}"), "r") as fin:
         for line in fin:
             line = line.strip()
             src_sents.append(line)
@@ -188,7 +183,6 @@ if __name__ == "__main__":
     
 
     # now let's generate new sentences!
-    key_generator = key_generator_f(keys, 9999999999)
     progress_bar = tqdm.tqdm(total=len(src_sents))
     if machine_data:
         progress_bar.update(len(machine_data))
@@ -197,16 +191,11 @@ if __name__ == "__main__":
             while len(machine_data) < len(src_sents):
                 prompt = encode_prompt(src_lang, tgt_lang, shots, src_sents[len(machine_data)], prompt_version=args.prompt_version)
 
-                # print(prompt)
-                # exit(0)
-
                 fout_prompt.write(prompt["content"].replace("\n", "\\n") + "\n")
                 prompt["content"] = prompt["content"].replace("\\n", "\n")
-                # 提前检查一下输入长度
                 if num_tokens_of_string(prompt["content"]) <= args.max_input_tokens:
-                    # result = "Only prompt no request"
+                    # result = "Only prompt no request" # Commenting out the next line and uncommenting this line enables this script to only records the prompts!
                     result = make_requests(
-                        key_generator=key_generator,
                         engine=args.engine,
                         prompts=[prompt],
                         max_tokens=(4000 - args.max_input_tokens),
@@ -215,7 +204,7 @@ if __name__ == "__main__":
                         frequency_penalty=0,
                         presence_penalty=2,
                         stop_sequences=["\n\n"]
-                        )[0]["response"]["choices"][0]["message"]["content"] # ["text"]
+                        )[0]["response"]["choices"][0]["message"]["content"]
                 else:
                     result = "###over length!!!"
 

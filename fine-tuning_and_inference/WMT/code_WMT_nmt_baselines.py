@@ -2,16 +2,11 @@ import os
 import random
 import tqdm
 import argparse
-from request_chatgpt_myy import make_requests
-from request_chatgpt_myy import key_generator_f
+from request_chatgpt import make_requests
 import tiktoken
 import time
 
-# random.seed(42)
-
-keys = [
-    "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"
-]
+random.seed(42)
 
 '''
 code prompt fewshot (5) on WMT22 with demonstrations from WMT21
@@ -77,25 +72,27 @@ def parse_args():
         required=True,
         help="The directory where the result is stored.",
     )
+
+    # Must be set
     parser.add_argument(
         "--wmt22_data_path",
         type=str,
-        # default="/mnt/muyongyu/fpn/multi_lang/gpt-MT/evaluation/testset/wmt-testset",
-        default="/mnt/muyongyu/fpn/multi_lang/wmt22-news-systems/txt",
+        default="wmt22-news-systems/txt",
         help="The path to the WMT22.",
     )
     parser.add_argument(
         "--flores200_data_path",
         type=str,
-        default="/mnt/muyongyu/fpn/multi_lang/flores200_dataset",
+        default="flores200_dataset",
         help="The path to the Flores-200.",
     )
     parser.add_argument(
         "--nmt_data_path",
         type=str,
-        default="/mnt/muyongyu/fpn/multi_lang/myy_files/results/GPT4",
+        default="results",
         help="The path to the NMT translations.",
     )
+
     parser.add_argument(
         "--lang_para",
         type=str,
@@ -217,7 +214,6 @@ if __name__ == "__main__":
     
 
     # now let's generate new sentences!
-    key_generator = key_generator_f(keys, 9999999999)
     progress_bar = tqdm.tqdm(total=len(src_sents))
     if machine_data:
         progress_bar.update(len(machine_data))
@@ -226,24 +222,19 @@ if __name__ == "__main__":
             while len(machine_data) < len(src_sents):
                 prompt = encode_prompt(mid_lang, tgt_lang, shots, src_sents[len(machine_data)], prompt_version=args.prompt_version)
 
-                # print(prompt)
-                # exit(0)
-
                 fout_prompt.write(prompt["content"].replace("\n", "\\n") + "\n")
-                # 提前检查一下输入长度
                 if num_tokens_of_string(prompt["content"]) <= args.max_input_tokens:
-                    result = "Only prompt no request"
-                    # result = make_requests(
-                    #     key_generator=key_generator,
-                    #     engine=args.engine,
-                    #     prompts=[prompt],
-                    #     max_tokens=(4000 - args.max_input_tokens),
-                    #     temperature=args.decoding_temperature,
-                    #     top_p=args.TopP,
-                    #     frequency_penalty=0,
-                    #     presence_penalty=2,
-                    #     stop_sequences=["\n\n"]
-                    #     )[0]["response"]["choices"][0]["message"]["content"]
+                    # result = "Only prompt no request" # Commenting out the next line and uncommenting this line enables this script to only records the prompts!
+                    result = make_requests(
+                        engine=args.engine,
+                        prompts=[prompt],
+                        max_tokens=(4000 - args.max_input_tokens),
+                        temperature=args.decoding_temperature,
+                        top_p=args.TopP,
+                        frequency_penalty=0,
+                        presence_penalty=2,
+                        stop_sequences=["\n\n"]
+                        )[0]["response"]["choices"][0]["message"]["content"]
                 else:
                     result = "###over length!!!"
 
