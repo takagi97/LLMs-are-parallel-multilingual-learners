@@ -101,6 +101,7 @@ python ./counting_activated_neurons/activate/Peak_anasisly.py
 Result display
 
 ![Analysis of high-frequency activated neurons](counting_activated_neurons/figure/Peak-anasisly-wmt22-deu2eng-bloom176B.png)
+
 ![Analysis of high-frequency activated neurons](counting_activated_neurons/figure/图片1.png)
 
 ## 4 Fine-tuning and Inference
