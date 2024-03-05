@@ -81,7 +81,7 @@ python ./counting_activated_neurons/activate/HeatMap_anasisly.py
 ```
 
 Result display
-![Visualization of activation of all neurons](./counting_activated_neurons/figure/wmt22-GPT4-deu_spa_rus_fra_zho_jpn_ces2eng-bloom176B.png)
+![Visualization of activation of all neurons](counting_activated_neurons/figure/wmt22-GPT4-deu_spa_rus_fra_zho_jpn_ces2eng-bloom176B.png)
 
 ### 3.5 Analysis of high-frequency activated neurons
 ./counting_activated_neurons/Peak_anasisly.py script can be used to calculate the line graph of the number of high-frequency activated neurons and their distribution in each layer of the model.
@@ -98,7 +98,7 @@ python ./counting_activated_neurons/activate/Peak_anasisly.py
 ```
 
 Result display
-![Analysis of high-frequency activated neurons](./counting_activated_neurons/figure/Peak-anasisly-wmt22-deu2eng-bloom176B.png)
+![Analysis of high-frequency activated neurons](counting_activated_neurons/figure/Peak-anasisly-wmt22-deu2eng-bloom176B.png)
 
 ## 4 Fine-tuning and Inference
 We used LLaMA-Factory and offical codes to do fine-tuning and inference, which is detailed in the below table. The fine-tuning and inference setups are provided in the appendix of our paper.
