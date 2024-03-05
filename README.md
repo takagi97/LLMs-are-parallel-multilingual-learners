@@ -81,6 +81,7 @@ python ./counting_activated_neurons/activate/HeatMap_anasisly.py
 ```
 
 Result display
+
 ![Visualization of activation of all neurons](counting_activated_neurons/figure/wmt22-GPT4-deu_spa_rus_fra_zho_jpn_ces2eng-bloom176B.png)
 
 ### 3.5 Analysis of high-frequency activated neurons
@@ -98,6 +99,7 @@ python ./counting_activated_neurons/activate/Peak_anasisly.py
 ```
 
 Result display
+
 ![Analysis of high-frequency activated neurons](counting_activated_neurons/figure/Peak-anasisly-wmt22-deu2eng-bloom176B.png)
 
 ## 4 Fine-tuning and Inference
