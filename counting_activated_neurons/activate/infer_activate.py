@@ -10,7 +10,7 @@ checkpoint = ""
 
 file_name = ""
 input_file = f"{file_name}.txt"
-activate_ratio_file = f"{file_name}-ratio-{checkpoint}.jsonl"
+activate_proportion_file = f"{file_name}-proportion-{checkpoint}.jsonl"
 activate_index_file = f"{file_name}-index-{checkpoint}.jsonl"
 output_file = f"{file_name}-result-{checkpoint}.txt"
 sys_prompt_flag = False
@@ -19,7 +19,7 @@ interactivate_flag = False
 
 count = 0
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-model = AutoModelForCausalLM.from_pretrained(checkpoint, torch_dtype="auto", device_map="auto", activate_file=[activate_ratio_file, activate_index_file])
+model = AutoModelForCausalLM.from_pretrained(checkpoint, torch_dtype="auto", device_map="auto", activate_file=[activate_proportion_file, activate_index_file])
 
 def Infer(text):
     inputs = tokenizer.encode(text, return_tensors="pt").to("cuda")
@@ -68,7 +68,7 @@ if count == 0:
         print("the file already exit, please check!!!")
         exit(0)
 
-    with open(activate_ratio_file, 'w') as f:
+    with open(activate_proportion_file, 'w') as f:
         pass
     with open(activate_index_file, 'w') as f:
         pass
