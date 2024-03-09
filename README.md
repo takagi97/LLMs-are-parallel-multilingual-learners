@@ -1,4 +1,4 @@
-# Large Language Models are parallel multilingual learners
+# Large Language Models are Parallel Multilingual Learners
 The code of the paper-[Large Language Models are Parallel Multilingual Learners]() includes two parts. The first one is counting activated neurons in the multi-layer perceptrons (MLPs) of transformer models. The second one is fine-tuning and inference.
 
 ## 1 Requirements and Installation
