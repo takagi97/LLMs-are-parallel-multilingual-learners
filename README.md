@@ -1,10 +1,10 @@
 # Large Language Models are Parallel Multilingual Learners
-The code of the paper-[Large Language Models are Parallel Multilingual Learners]() includes two parts. The first one is counting activated neurons in the multi-layer perceptrons (MLPs) of transformer models. The second one is fine-tuning and inference.
+The code of the paper-[Large Language Models are Parallel Multilingual Learners](https://arxiv.org/abs/2403.09073) includes two parts. The first one is counting activated neurons in the multi-layer perceptrons (MLPs) of transformer models. The second one is fine-tuning and inference.
 
 ## 1 Requirements and Installation
 - LLaMA-Factory >= 0.3.2
 
-To do fine-tuning and inference on the multilingual LLMs used in our work, you need to create an environment satisfying the requirements of [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/tree/v0.3.2).
+To do fine-tuning and inference on the multilingual LLMs used in our work, you may need to create an environment satisfying the requirements of [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/tree/v0.3.2).
 
 ## 2 Parallel Multilingual Data
 The parallel multilingual data translated by GPTs is released in ```gpt_translated_data/specific dataset```. The datasets used in our experiments are detailed in the following table. Note that all the samples are randomly selected to guarantee the effectiveness of the evaluations. Except for the FLORES-200 and XNLI development set which is already parallel in multiple languages, other datasets are translated by GPTs. 
@@ -106,7 +106,7 @@ Results:
 ## 4 Fine-tuning and Inference
 We use LLaMA-Factory and their official code to do fine-tuning and inference, which is detailed in the table below. The setup of fine-tuning and inference is provided in the appendix of our paper.
 
-Model | Fine-tuning or Not | Tool of Fine-tuning and Inference
+Model | LoRA tuning or Not | Tool of Fine-tuning and Inference
 ---|---|---
 ChatGPT | N | [OpenAI's API](https://platform.openai.com/docs/api-reference)
 Qwen-7B | Y | [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/tree/v0.3.2)
@@ -119,7 +119,13 @@ Bloomz-176B | N | [offical code](https://huggingface.co/bigscience/bloomz)
 
 The code we used for making fine-tuning and inference data is provided in ```fine-tuning_and_inference```.
 
-<!-- ## Citation
+## Citation
 If this work is helpful for your research, please consider citing the following BibTeX entry.
 ```
-``` -->
+@article{mu2024large,
+  title={Large Language Models are Parallel Multilingual Learners},
+  author={Mu, Yongyu and Feng, Peinan and Cao, Zhiquan and Wu, Yuzhang and Li, Bei and Wang, Chenglong and Xiao, Tong and Song, Kai and Liu, Tongran and Zhang, Chunliang and others},
+  journal={arXiv preprint arXiv:2403.09073},
+  year={2024}
+}
+```
