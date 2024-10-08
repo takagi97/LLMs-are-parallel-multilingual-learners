@@ -1,5 +1,5 @@
-# Large Language Models are Parallel Multilingual Learners
-The code of the paper-[Large Language Models are Parallel Multilingual Learners](https://arxiv.org/abs/2403.09073) includes two parts. The first one is counting activated neurons in the multi-layer perceptrons (MLPs) of transformer models. The second one is fine-tuning and inference.
+# Revealing the Parallel Multilingual Learning within Large Language Models
+The code of the paper-[Revealing the Parallel Multilingual Learning within Large Language Models](https://arxiv.org/abs/2403.09073) includes two parts. The first one is counting activated neurons in the multi-layer perceptrons (MLPs) of transformer models. The second one is fine-tuning and inference.
 
 ## 1 Requirements and Installation
 - LLaMA-Factory >= 0.3.2
@@ -15,9 +15,9 @@ Translation | WMT | [FLORES-200](https://github.com/facebookresearch/flores/tree
 Nature Language Inference | [RTE](https://dl.fbaipublicfiles.com/glue/data/RTE.zip) | same data as below | RTE devlopment set | ChatGPT
 Nature Language Inference | [XNLI](https://cims.nyu.edu/~sbowman/xnli/) | XNLI development set | 1000 samples of the XNLI test set for each language (fr, de, ru, zh) | ChatGPT
 Reading Comprehension | [BoolQ](https://github.com/google-research-datasets/boolean-questions) | 1000 samples of the BoolQ training set | 1000 samples of the BoolQ development set | ChatGPT
-Text Simplification | [Asset](https://github.com/facebookresearch/asset) | 2000 samples of the Asset development set | Asset test set | ChatGPT
 Text Simplification | [Wiki-Auto](https://github.com/chaojiang06/wiki-auto/blob/master/wiki-auto/GEM2021/full_with_split/valid.tsv) | same data as above | 1000 samples of the Wiki-Auto development set | ChatGPT
 Abstractive Summarization | [XLSum](https://github.com/csebuetnlp/xl-sum) | 300 samples of the XLSum development set for each language | 500 samples of the XLSum test set for each language (fr, ru, es) | ChatGPT
+Mathematical Reasoning | [GSM8K](https://huggingface.co/datasets/openai/gsm8k/viewer/main/test) | - | GSM8K test set | GPT4
 
 ## 3 Statistics of Activated Neurons
 
